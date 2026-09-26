@@ -1,0 +1,73 @@
+{
+  "common": {
+    "name": "greenely",
+    "version": "0.0.1",
+    "title": "Greenely",
+    "desc": {
+      "en": "reads out hourly prices from Greenely"
+    },
+    "authors": [
+      "SirJojo69 <gtj.howe@gmx.de>"
+    ],
+    "platform": "Javascript/Node.js",
+    "mode": "schedule",
+    "schedule": "0 * * * *",
+    "enabled": true,
+    "license": "MIT",
+    "loglevel": "info",
+    "readme": "https://github.com/sirjojo69/ioBroker.awattar/blob/master/README.md",
+    "icon": "greenely.png",
+    "extIcon": "https://raw.githubusercontent.com/sirjojo69/ioBroker.awattar/master/admin/awattar.png",
+    "keywords": [
+      "PV",
+      "ioBroker"
+    ],
+    "type": "utility",
+    "news": {
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "изначальный выпуск",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "初始发行"
+      }
+    },
+    "titleLang": {
+      "en": "Greenely",
+      "de": "Greenely",
+      "ru": "Greenely",
+      "pt": "Greenely",
+      "nl": "Greenely",
+      "fr": "Greenely",
+      "it": "Greenely",
+      "es": "Greenely",
+      "pl": "Greenely"
+    },
+    "main": "main.js",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=2.0.0"
+      }
+    ],
+    "installedFrom": "/home/iobroker/ioBroker.greenely"
+  },
+  "native": {
+    "greenelyApiUrl": "https://api2.greenely.com/v1/",
+    "username": "",
+    "password": "",
+    "device_id": "",
+    "VATRate": "25",
+    "WorkRate": "20,08"
+  },
+  "objects": [],
+  "instanceObjects": []
+}
