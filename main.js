@@ -102,7 +102,7 @@ class Greenely extends utils.Adapter {
 
 
             var today = new Date();
-            this.fetchSpotPrices(facilityId, date, "today");
+            this.fetchSpotPrices(facilityId, today, "today");
 
             var tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
