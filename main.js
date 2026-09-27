@@ -82,6 +82,14 @@ class Greenely extends utils.Adapter {
         return response.data;
     }
 
+    async fetchSpotPrices(facility, date, dayName) {
+        const dateString = date.toISOString().split('T')[0];
+        date.setDate(date.getDate() + 1);
+        const endDateString = date.toISOString().split('T')[0];
+
+        let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=quarterly&to=" + endDateString);
+    }
+
     async fetchData() {
         let content = await this.fetchDataRaw("facilities/?includes=parameters");
 
@@ -89,8 +97,16 @@ class Greenely extends utils.Adapter {
 
         for (var f in content["data"]) {
             var facility = content["data"][f];
-            this.log.debug(JSON.stringify(facility));
-            this.log.debug("Fetching data for facility " + facility["id"]);
+            var facilityId = facility["id"];
+            this.log.info("Fetching data for facility " + facility["id"]);
+
+
+            var today = new Date();
+            fetchSpotPrices(facilityId, date, "today");
+
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            fetchSpotPrices(facilityId, tomorrow, "tomorrow");
         }
     }
 
