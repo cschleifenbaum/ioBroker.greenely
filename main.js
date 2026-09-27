@@ -116,30 +116,21 @@ class Greenely extends utils.Adapter {
             this.createObject(stateBaseName + "price", "number", "öre/kWh");
 
             //write prices / timestamps to their data points
-            this.log.debug(stateBaseName + "start");
-            this.log.debug(startDate.toISOString(), true);
-            this.log.debug("setting...");
             this.setState(stateBaseName + "start", startDate.toISOString(), true);
-            this.log.debug("done");
-            //await Promise.all(
-//                [this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true)//,
-                 //this.setStateAsync(stateBaseName + "end", endDate.toISOString(), true),
-                 //this.setStateAsync(stateBaseName + "price", price, true)
-            //])
+            this.setState(stateBaseName + "end", endDate.toISOString(), true);
+            this.setStateAsync(stateBaseName + "price", price, true);
 
             // if it's the current hour, mark it as current
-            /*let now = Date.now();
+            let now = Date.now();
             if (now >= key * 1000 && now < key * 1000 + 3600000) {
                 this.createObject(stateBaseNameCurrent + "start", "string");
                 this.createObject(stateBaseNameCurrent + "end", "string");
                 this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
 
-                await Promise.all(
-                    [this.setStateAsync(stateBaseNameCurrent + "start", startDate.toISOString(), true),
-                     this.setStateAsync(stateBaseNameCurrent + "end", endDate.toISOString(), true),
-                     this.setStateAsync(stateBaseNameCurrent + "price", price, true)
-                ])
-            }*/
+                this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                this.setState(stateBaseNameCurrent + "price", price, true);
+            }
         }
     } catch (error) {
         this.log.error(`Error while requesting data: ${error.message}`);
