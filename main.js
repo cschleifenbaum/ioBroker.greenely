@@ -138,7 +138,7 @@ class Greenely extends utils.Adapter {
                 for (var q = 0; q < 4; ++q) {
                     var quarter = hour * 4 + q;
                     let stateBaseName = stateTotalBaseName + ".quarterly." + quarter + ".";
-                    let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.quarterly";
+                    let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.quarterly.";
 
                     let startDate = new Date(key * 1000 + q * 900000);
                     let endDate = new Date(key * 1000 + q * 900000 + 899999);
