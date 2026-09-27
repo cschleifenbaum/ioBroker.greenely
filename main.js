@@ -80,7 +80,7 @@ class Greenely extends utils.Adapter {
     async fetchData() {
     }
 
-    async login() {
+    login() {
         let loginData = { email: adapter.config.username,
             password: adapter.config.password,
             device_id: adapter.config.device_id
@@ -94,7 +94,7 @@ class Greenely extends utils.Adapter {
     async main() {
         if (this.jwt === undefined) {
             // login required
-            if (!await login()) {
+            if (!login()) {
                 return;
             }
         }

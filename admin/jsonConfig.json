@@ -2,9 +2,9 @@
     "i18n": true,
     "type": "panel",
     "items": {
-        "option1": {
-            "type": "checkbox",
-            "label": "option1",
+        "username": {
+            "type": "text",
+            "label": "username",
             "newLine": true,
             "xs": 12,
             "sm": 12,
@@ -12,9 +12,19 @@
             "lg": 4,
             "xl": 4
         },
-        "option2": {
+        "password": {
             "type": "text",
-            "label": "option2",
+            "label": "password",
+            "newLine": true,
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 4,
+            "xl": 4
+        },
+        "device_id": {
+            "type": "text",
+            "label": "device_id",
             "newLine": true,
             "xs": 12,
             "sm": 12,
