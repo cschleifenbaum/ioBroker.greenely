@@ -1,4 +1,4 @@
-// This file extends the AdapterConfig type from "@types/iobroker"
+// This file extends the AdapterConfig type from "@iobroker/types"
 // using the actual properties present in io-package.json
 // in order to provide typings for adapter.config properties
 
@@ -14,3 +14,6 @@ declare global {
         }
     }
 }
+
+// this is required so the above AdapterConfig is found by TypeScript / type checking
+export {};

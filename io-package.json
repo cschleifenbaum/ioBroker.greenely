@@ -1,73 +1,92 @@
 {
-  "common": {
-    "name": "greenely",
-    "version": "0.0.1",
-    "title": "Greenely",
-    "desc": {
-      "en": "reads out hourly prices from Greenely"
+    "common": {
+        "name": "greenely",
+        "version": "0.1.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "uk": "Початкова версія",
+                "zh-cn": "首次出版"
+            }
+        },
+        "titleLang": {
+            "en": "Greenely",
+            "de": "Greenely",
+            "ru": "Гринли",
+            "pt": "Verde",
+            "nl": "Groen",
+            "fr": "Vert",
+            "it": "Greenely",
+            "es": "verdemente",
+            "pl": "Greenely",
+            "uk": "Greenely",
+            "zh-cn": "格林尼利"
+        },
+        "desc": {
+            "en": "Fetch prices from your Greenely customer account",
+            "de": "Rufen Sie Preise aus Ihrem Greenely-Kundenkonto ab",
+            "ru": "Получите цены из своей учетной записи клиента Greenely.",
+            "pt": "Obtenha preços de sua conta de cliente Greenely",
+            "nl": "Prijzen ophalen uit uw Greenely-klantaccount",
+            "fr": "Récupérez les prix depuis votre compte client Greenely",
+            "it": "Recupera i prezzi dal tuo account cliente Greenely",
+            "es": "Obtenga precios de su cuenta de cliente de Greenely",
+            "pl": "Pobieraj ceny ze swojego konta klienta Greenely",
+            "uk": "Отримайте ціни зі свого облікового запису клієнта Greenely",
+            "zh-cn": "从您的 Greenely 客户帐户获取价格"
+        },
+        "authors": [
+            "Christoph Schleifenbaum <christoph@schleifi.com>"
+        ],
+        "keywords": [
+            "template",
+            "automation",
+            "IoT",
+            "integration"
+        ],
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "greenely.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/cschleifenbaum/ioBroker.greenely/main/admin/greenely.png",
+        "readme": "https://github.com/cschleifenbaum/ioBroker.greenely/blob/main/README.md",
+        "loglevel": "info",
+        "tier": 3,
+        "mode": "schedule",
+        "schedule": "*/15 * * * *",
+        "type": "misc-data",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.0.23"
+            }
+        ]
     },
-    "authors": [
-      "SirJojo69 <gtj.howe@gmx.de>"
-    ],
-    "platform": "Javascript/Node.js",
-    "mode": "schedule",
-    "schedule": "0 * * * *",
-    "enabled": true,
-    "license": "MIT",
-    "loglevel": "info",
-    "readme": "https://github.com/sirjojo69/ioBroker.awattar/blob/master/README.md",
-    "icon": "greenely.png",
-    "extIcon": "https://raw.githubusercontent.com/sirjojo69/ioBroker.awattar/master/admin/awattar.png",
-    "keywords": [
-      "PV",
-      "ioBroker"
-    ],
-    "type": "utility",
-    "news": {
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "изначальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "初始发行"
-      }
+    "native": {
+        "option1": true,
+        "option2": "42"
     },
-    "titleLang": {
-      "en": "Greenely",
-      "de": "Greenely",
-      "ru": "Greenely",
-      "pt": "Greenely",
-      "nl": "Greenely",
-      "fr": "Greenely",
-      "it": "Greenely",
-      "es": "Greenely",
-      "pl": "Greenely"
-    },
-    "main": "main.js",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "materialize": true,
-    "dependencies": [
-      {
-        "js-controller": ">=2.0.0"
-      }
-    ],
-    "installedFrom": "/home/iobroker/ioBroker.greenely"
-  },
-  "native": {
-    "greenelyApiUrl": "https://api2.greenely.com/v1/",
-    "username": "",
-    "password": "",
-    "device_id": "",
-    "VATRate": "25",
-    "WorkRate": "20,08"
-  },
-  "objects": [],
-  "instanceObjects": []
+    "objects": [],
+    "instanceObjects": []
 }
