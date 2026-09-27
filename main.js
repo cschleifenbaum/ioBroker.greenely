@@ -119,7 +119,7 @@ class Greenely extends utils.Adapter {
             this.log.debug(stateBaseName + "start");
             this.log.debug(startDate.toISOString(), true);
             this.log.debug("setting...");
-            await this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true);
+            this.setState(stateBaseName + "start", startDate.toISOString(), true);
             this.log.debug("done");
             //await Promise.all(
 //                [this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true)//,
