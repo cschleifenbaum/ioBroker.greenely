@@ -83,7 +83,7 @@ class Greenely extends utils.Adapter {
     }
 
     async fetchData() {
-        let content = this.fetchDataRaw("facilities/?includes=parameters");
+        let content = await this.fetchDataRaw("facilities/?includes=parameters");
 
         this.log.debug(content);
 
