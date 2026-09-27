@@ -83,6 +83,7 @@ class Greenely extends utils.Adapter {
     }
 
     async fetchSpotPrices(facility, date, dayName) {
+        try {
         const dateString = date.toISOString().split('T')[0];
         date.setDate(date.getDate() + 1);
         const endDateString = date.toISOString().split('T')[0];
@@ -134,6 +135,9 @@ class Greenely extends utils.Adapter {
                 ])
             }
         }
+    } catch (error) {
+        this.log.error(`Error while requesting data: ${error.message}`);
+    }
     }
 
     createObject(id, type, unit = null) {
