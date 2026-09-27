@@ -37,12 +37,11 @@ class Greenely extends utils.Adapter {
     }
 
     async fetchDataRaw(url, data = null) {
+        let headers = this.jwt === undefined ? { "User-Agent": "iOS 2 266" } : { "User-Agent": "iOS 2 266", "Authorization": "JWT " + this.jwt };
         url = this.config.greenelyApiUrl.concat(url);
         this.log.debug('local request started: ' + url);
         this.log.debug(JSON.stringify(headers));
         this.log.debug(JSON.stringify(data));
-
-        let headers = this.jwt === undefined ? { "User-Agent": "iOS 2 266" } : { "User-Agent": "iOS 2 266", "Authorization": "JWT " + this.jwt };
 
         let response;
         try {
