@@ -160,6 +160,8 @@ class Greenely extends utils.Adapter {
     }
 }
 
+adapter.log.info("Quak Test");
+
 if (require.main !== module) {
     // Export the constructor in compact mode
     /**
