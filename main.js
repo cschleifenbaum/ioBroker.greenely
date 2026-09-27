@@ -36,7 +36,8 @@ class Greenely extends utils.Adapter {
         return new Promise(resolve => setTimeout(() => !this.unloaded && resolve(), ms));
     }
 
-    async fetchData(url, data = null) {
+    async fetchDataRaw(url, data = null) {
+        url = this.config.greenelyApiUrl.concat(url);
         adapter.log.debug('local request started: ' + url);
         adapter.log.debug(JSON.stringify(headers));
         adapter.log.debug(JSON.stringify(data));
@@ -86,7 +87,7 @@ class Greenely extends utils.Adapter {
             device_id: this.config.device_id
         };
 
-        let data = this.fetchData("login", loginData);
+        let data = await this.fetchDataRaw("login", loginData);
 
         return false;
 	}
@@ -247,7 +248,7 @@ class Greenely extends utils.Adapter {
 
 
         await this.main();
-        this.log.info('Update of data done, existing ...');
+        this.log.info('Update of data done, exiting ...');
         this.terminate ? this.terminate() : process.exit(0);
     }
 
