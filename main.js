@@ -87,7 +87,7 @@ class Greenely extends utils.Adapter {
         date.setDate(date.getDate() + 1);
         const endDateString = date.toISOString().split('T')[0];
 
-        let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=quarterly&to=" + endDateString);
+        let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=hourly&to=" + endDateString);
     }
 
     async fetchData() {
