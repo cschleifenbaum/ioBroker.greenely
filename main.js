@@ -100,14 +100,14 @@ class Greenely extends utils.Adapter {
             let value = content.data[key];
             this.log.debug(JSON.stringify(value));
             this.log.debug(hour + " " + value.price);
-/*            let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
+            let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
             let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.";
 
             let startDate = new Date(key * 1000);
             let endDate = new Date(key * 1000 + 3599999);
             let price = value.price / 1000.0;
 
-            if (value.price == null) {
+/*            if (value.price == null) {
 //                continue;
             }
 
