@@ -40,9 +40,9 @@ class Greenely extends utils.Adapter {
         let headersDefault = { "User-Agent": "iOS 2 266" };
         let headersLoggedIn = { "User-Agent": "iOS 2 266", "Authorization": "JWT " + this.jwt };
         let headers = this.jwt === undefined ? headersDefault : headersLoggedIn;
-        this.log.error("local request started: " + url);
+        this.log.debug("local request started: " + url);
         let fullurl = this.config["greenelyApiUrl"] + url;
-        this.log.error("local request started: " + fullurl);
+        this.log.debug("local request started: " + fullurl);
         this.log.debug(JSON.stringify(headers));
         this.log.debug(JSON.stringify(data));
 
@@ -77,8 +77,8 @@ class Greenely extends utils.Adapter {
             }
             return null;
         }
-        this.log.error('local request done');
-        this.log.error('received data (' + response.status + '): ' + JSON.stringify(response.data));
+        this.log.debug('local request done');
+        this.log.debug('received data (' + response.status + '): ' + JSON.stringify(response.data));
         return response.data;
     }
 
@@ -93,15 +93,19 @@ class Greenely extends utils.Adapter {
 
         let data = await this.fetchDataRaw("login", loginData);
 
-        return false;
+        this.jwt = data["jwt"];
+
+        return this.jwt !== undefined;;
 	}
 
     async main() {
         if (this.jwt === undefined) {
             // login required
             if (!(await this.login())) {
+                this.log.error("Login failed!");
                 return;
             }
+            this.log.debug("Logged in.");
         }
 
 
