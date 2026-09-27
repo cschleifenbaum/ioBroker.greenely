@@ -89,15 +89,15 @@ class Greenely extends utils.Adapter {
 
         let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=hourly&to=" + endDateString);
 
-        var hour = -1;
         var quarter = -1;
 
         this.log.debug("These are the prices for " + dayName);
 
-        for (var key in content["data"]) {
-            ++hour;
-            let value = content["data"][key];
-            this.log.debug(key + " " + value.price);
+        const array = content.data;
+
+        for (let hour = 0; hour < array.length; ++hour) {
+            let value = array[hour];
+            this.log.debug(hour + " " + value.price);
             let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
             let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.";
 
@@ -120,6 +120,7 @@ class Greenely extends utils.Adapter {
                  this.setStateAsync(stateBaseName + "price", price, true)
             ])
 
+            // if it's the current hour, mark it as current
             let now = Date.now();
             if (now >= key * 1000 && now < key * 1000 + 3600000) {
                 this.createObject(stateBaseNameCurrent + "start", "string");
