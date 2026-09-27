@@ -98,8 +98,6 @@ class Greenely extends utils.Adapter {
             let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
             await this.delObjectAsync(stateTotalBaseName, { recursive: true });
 
-            return;
-
             for (var key in content.data) {
                 ++hour;
                 let value = content.data[key];
