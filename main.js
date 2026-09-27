@@ -98,8 +98,9 @@ class Greenely extends utils.Adapter {
         for (var key in content.data) {
             ++hour;
             let value = content.data[key];
+            this.log.debug(JSON.stringify(value));
             this.log.debug(hour + " " + value.price);
-            let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
+/*            let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
             let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.";
 
             let startDate = new Date(key * 1000);
@@ -107,7 +108,7 @@ class Greenely extends utils.Adapter {
             let price = value.price / 1000.0;
 
             if (value.price == null) {
-                continue;
+//                continue;
             }
 
             this.createObject(stateBaseName + "start", "string");
@@ -133,7 +134,7 @@ class Greenely extends utils.Adapter {
                      this.setStateAsync(stateBaseNameCurrent + "end", endDate.toISOString(), true),
                      this.setStateAsync(stateBaseNameCurrent + "price", price, true)
                 ])
-            }
+            }*/
         }
     } catch (error) {
         this.log.error(`Error while requesting data: ${error.message}`);
