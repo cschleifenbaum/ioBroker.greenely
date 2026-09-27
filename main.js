@@ -84,6 +84,7 @@ class Greenely extends utils.Adapter {
 
     async fetchSpotPrices(facility, date, dayName) {
         try {
+            date.setMinutes(date.getMinutes() - d.getTimezoneOffset());
             const dateString = date.toISOString().split('T')[0];
             date.setDate(date.getDate() + 1);
             const endDateString = date.toISOString().split('T')[0];
