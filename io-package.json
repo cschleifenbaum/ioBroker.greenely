@@ -84,8 +84,10 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
+        "greenelyApiUrl": "https://api2.greenely.com/v1/",
+        "username": "",
+        "password": "",
+        "device_id": ""
     },
     "objects": [],
     "instanceObjects": []

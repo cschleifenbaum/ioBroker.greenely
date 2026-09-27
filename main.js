@@ -29,13 +29,59 @@ class Greenely extends utils.Adapter {
 		this.on("unload", this.onUnload.bind(this));
 
         this.unloaded = false;
+        this.awt = undefined;
 	}
 
     sleep(ms) {
         return new Promise(resolve => setTimeout(() => !this.unloaded && resolve(), ms));
     }
 
+    async login() {
+        let loginData = { email: adapter.config.username,
+            password: adapter.config.password,
+            device_id: adapter.config.device_id
+        };
+
+        let urlLogin = adapter.config.greenelyApiUrl.concat("login");
+
+        let response;
+        try {
+            response = await axios({
+                method: 'post',
+                baseURL: urlEpoch,
+                data: loginData,
+                timeout: 10000,
+                responseType: 'json'
+           });
+         } catch (error) {
+            (error) => {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+
+                    this.log.warn('received error ' + error.response.status + ' response from local sensor ' + sensorIdentifier + ' with content: ' + JSON.stringify(error.response.data));
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js<div></div>
+                    this.log.error(error.message);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    this.log.error(error.message);
+                }
+            }
+            return;
+        }
+	}
+
     async main() {
+        if (this.awt === undefined) {
+            // login required
+            if (!login()) {
+                return;
+            }
+        }
+
+
         let apiParam = '';
         if (
             this.config.latitude !== undefined && this.config.longitude !== undefined &&
@@ -151,7 +197,7 @@ class Greenely extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
-	    if ((!this.config.longitude && this.config.longitude !== 0) || isNaN(this.config.longitude) ||
+	    /*if ((!this.config.longitude && this.config.longitude !== 0) || isNaN(this.config.longitude) ||
             (!this.config.latitude && this.config.latitude !== 0) || isNaN(this.config.latitude)
         ) {
             this.log.info('longitude/longitude not set, get data from system');
@@ -165,7 +211,7 @@ class Greenely extends utils.Adapter {
             }
         } else {
             this.log.info(`longitude/longitude will be set by self-Config - longitude: ${this.config.longitude} latitude: ${this.config.latitude}`);
-        }
+        }*/
 
 
 
