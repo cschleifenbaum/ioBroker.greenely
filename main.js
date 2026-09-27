@@ -92,6 +92,9 @@ class Greenely extends utils.Adapter {
         };
 
         let data = await this.fetchDataRaw("login", loginData);
+        if (data === null) {
+            return false;
+        }
 
         this.jwt = data["jwt"];
 
