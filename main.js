@@ -98,7 +98,7 @@ class Greenely extends utils.Adapter {
             let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
             this.deleteObject(stateTotalBaseName, true);
 
-            continue;
+            return;
 
             for (var key in content.data) {
                 ++hour;
