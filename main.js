@@ -84,57 +84,62 @@ class Greenely extends utils.Adapter {
 
     async fetchSpotPrices(facility, date, dayName) {
         try {
-        const dateString = date.toISOString().split('T')[0];
-        date.setDate(date.getDate() + 1);
-        const endDateString = date.toISOString().split('T')[0];
+            const dateString = date.toISOString().split('T')[0];
+            date.setDate(date.getDate() + 1);
+            const endDateString = date.toISOString().split('T')[0];
 
-        let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=hourly&to=" + endDateString);
+            let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=hourly&to=" + endDateString);
 
-        var hour = -1;
-        var quarter = -1;
+            var hour = -1;
+            var quarter = -1;
 
-        this.log.debug("These are the prices for " + dayName);
+            this.log.debug("These are the prices for " + dayName);
 
-        for (var key in content.data) {
-            ++hour;
-            let value = content.data[key];
-            this.log.debug(JSON.stringify(value));
-            this.log.debug(hour + " " + value.price);
-            let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
-            let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.";
+            let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
+            this.deleteObject(stateTotalBaseName, true);
 
-            let startDate = new Date(key * 1000);
-            let endDate = new Date(key * 1000 + 3599999);
-            let price = value.price / 1000.0;
+            continue;
 
-            if (value.price == null) {
-//                continue;
+            for (var key in content.data) {
+                ++hour;
+                let value = content.data[key];
+                this.log.debug(JSON.stringify(value));
+                this.log.debug(hour + " " + value.price);
+                let stateBaseName = stateTotalBaseName + "." + hour + ".";
+                let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.";
+
+                let startDate = new Date(key * 1000);
+                let endDate = new Date(key * 1000 + 3599999);
+                let price = value.price / 1000.0;
+
+                if (value.price == null) {
+                    continue;
+                }
+
+                this.createObject(stateBaseName + "start", "string");
+                this.createObject(stateBaseName + "end", "string");
+                this.createObject(stateBaseName + "price", "number", "öre/kWh");
+
+                //write prices / timestamps to their data points
+                this.setState(stateBaseName + "start", startDate.toISOString(), true);
+                this.setState(stateBaseName + "end", endDate.toISOString(), true);
+                this.setStateAsync(stateBaseName + "price", price, true);
+
+                // if it's the current hour, mark it as current
+                let now = Date.now();
+                if (now >= key * 1000 && now < key * 1000 + 3600000) {
+                    this.createObject(stateBaseNameCurrent + "start", "string");
+                    this.createObject(stateBaseNameCurrent + "end", "string");
+                    this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
+
+                    this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                    this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                    this.setState(stateBaseNameCurrent + "price", price, true);
+                }
             }
-
-            this.createObject(stateBaseName + "start", "string");
-            this.createObject(stateBaseName + "end", "string");
-            this.createObject(stateBaseName + "price", "number", "öre/kWh");
-
-            //write prices / timestamps to their data points
-            this.setState(stateBaseName + "start", startDate.toISOString(), true);
-            this.setState(stateBaseName + "end", endDate.toISOString(), true);
-            this.setStateAsync(stateBaseName + "price", price, true);
-
-            // if it's the current hour, mark it as current
-            let now = Date.now();
-            if (now >= key * 1000 && now < key * 1000 + 3600000) {
-                this.createObject(stateBaseNameCurrent + "start", "string");
-                this.createObject(stateBaseNameCurrent + "end", "string");
-                this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
-
-                this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
-                this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
-                this.setState(stateBaseNameCurrent + "price", price, true);
-            }
+        } catch (error) {
+            this.log.error(`Error while fetching spot prices: ${error.message}`);
         }
-    } catch (error) {
-        this.log.error(`Error while requesting data: ${error.message}`);
-    }
     }
 
     createObject(id, type, unit = null) {
