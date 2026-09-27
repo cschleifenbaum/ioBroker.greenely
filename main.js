@@ -87,9 +87,10 @@ class Greenely extends utils.Adapter {
 
         this.log.debug(JSON.stringify(content));
 
-        for (var facility in content["data"]) {
+        for (var f in content["data"]) {
+            var facility = content["data"][f];
             this.log.debug(JSON.stringify(facility));
-            this.log.debug("Fetching data for facility " + facility.id);
+            this.log.debug("Fetching data for facility " + facility["id"]);
         }
     }
 
