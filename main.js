@@ -86,7 +86,7 @@ class Greenely extends utils.Adapter {
             device_id: this.config.device_id
         };
 
-        let data = fetchData("login", loginData);
+        let data = this.fetchData("login", loginData);
 
         return false;
 	}
