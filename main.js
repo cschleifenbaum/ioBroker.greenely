@@ -40,8 +40,8 @@ class Greenely extends utils.Adapter {
         let headersDefault = { "User-Agent": "iOS 2 266" };
         let headersLoggedIn = { "User-Agent": "iOS 2 266", "Authorization": "JWT " + this.jwt };
         let headers = this.jwt === undefined ? headersDefault : headersLoggedIn;
-        url = this.config.greenelyApiUrl.concat(url);
-        this.log.debug("local request started: " + url);
+        let fullurl = this.config.greenelyApiUrl.concat(url);
+        this.log.debug("local request started: " + fullurl);
         this.log.debug(JSON.stringify(headers));
         this.log.debug(JSON.stringify(data));
 
@@ -49,14 +49,14 @@ class Greenely extends utils.Adapter {
         try {
             response = await axios({
                 method: data == null ? 'get' : 'post',
-                baseURL: url,
+                baseURL: fullurl,
                 headers: headers,
                 timeout: 10000,
                 data: data,
                 responseType: 'json'
            });
         } catch (error) {
-            this.log.error(url);
+            this.log.error(fullurl);
             this.log.error("Received error " + error);
             (error) => {
                 if (error.response) {
@@ -249,7 +249,11 @@ class Greenely extends utils.Adapter {
         }, 300000);
 
 
-        await this.main();
+        try {
+            await this.main();
+        } catch (error) {
+            this.log.error(err);
+        }
         this.log.info('Update of data done, exiting ...');
         this.terminate ? this.terminate() : process.exit(0);
     }
