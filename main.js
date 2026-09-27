@@ -107,7 +107,7 @@ class Greenely extends utils.Adapter {
             let endDate = new Date(key * 1000 + 3599999);
             let price = value.price / 1000.0;
 
-/*            if (value.price == null) {
+            if (value.price == null) {
 //                continue;
             }
 
@@ -116,7 +116,7 @@ class Greenely extends utils.Adapter {
             this.createObject(stateBaseName + "price", "number", "öre/kWh");
 
             //write prices / timestamps to their data points
-            await Promise.all(
+/*            await Promise.all(
                 [this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true),
                  this.setStateAsync(stateBaseName + "end", endDate.toISOString(), true),
                  this.setStateAsync(stateBaseName + "price", price, true)
