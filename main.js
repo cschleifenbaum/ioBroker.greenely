@@ -97,7 +97,6 @@ class Greenely extends utils.Adapter {
 
             let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
             this.delObject(stateTotalBaseName, { recursive: true });
-            return;
 
             for (var key in content.data) {
                 ++hour;
@@ -122,7 +121,7 @@ class Greenely extends utils.Adapter {
                 //write prices / timestamps to their data points
                 this.setState(stateBaseName + "start", startDate.toISOString(), true);
                 this.setState(stateBaseName + "end", endDate.toISOString(), true);
-                this.setStateAsync(stateBaseName + "price", price, true);
+                this.setState(stateBaseName + "price", price, true);
 
                 // if it's the current hour, mark it as current
                 let now = Date.now();
