@@ -29,36 +29,37 @@ class Greenely extends utils.Adapter {
 		this.on("unload", this.onUnload.bind(this));
 
         this.unloaded = false;
-        this.awt = undefined;
+        this.jwt = undefined;
 	}
 
     sleep(ms) {
         return new Promise(resolve => setTimeout(() => !this.unloaded && resolve(), ms));
     }
 
-    async login() {
-        let loginData = { email: adapter.config.username,
-            password: adapter.config.password,
-            device_id: adapter.config.device_id
-        };
+    async fetchData(url, data = null) {
+        adapter.log.debug('local request started: ' + url);
+        adapter.log.debug(JSON.stringify(headers));
+        adapter.log.debug(JSON.stringify(data));
 
-        let urlLogin = adapter.config.greenelyApiUrl.concat("login");
+        let headers = this.jwt === undefined ? { "User-Agent": "iOS 2 266" } : { "User-Agent": "iOS 2 266", "Authorization": "JWT " + this.jwt };
 
         let response;
         try {
             response = await axios({
-                method: 'post',
-                baseURL: urlEpoch,
-                data: loginData,
+                method: data == null ? 'get' : 'post',
+                baseURL: url,
+                headers: headers,
                 timeout: 10000,
+                data: data,
                 responseType: 'json'
            });
-         } catch (error) {
+        } catch (error) {
+            this.log.error('received error ' + error);
             (error) => {
                 if (error.response) {
                     // The request was made and the server responded with a status code
 
-                    this.log.warn('received error ' + error.response.status + ' response from local sensor ' + sensorIdentifier + ' with content: ' + JSON.stringify(error.response.data));
+                    this.log.warn('received error ' + error.response.status + ' response with content: ' + JSON.stringify(error.response.data));
                 } else if (error.request) {
                     // The request was made but no response was received
                     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -69,12 +70,29 @@ class Greenely extends utils.Adapter {
                     this.log.error(error.message);
                 }
             }
-            return;
+            return null;
         }
+        this.log.debug('local request done');
+        this.log.debug('received data (' + response.status + '): ' + JSON.stringify(response.data));
+        return response.data;
+    }
+
+    async fetchData() {
+    }
+
+    async login() {
+        let loginData = { email: adapter.config.username,
+            password: adapter.config.password,
+            device_id: adapter.config.device_id
+        };
+
+        let urlLogin = adapter.config.greenelyApiUrl.concat("login");
+
+        let data = fetchData(urlLogin, loginData);
 	}
 
     async main() {
-        if (this.awt === undefined) {
+        if (this.jwt === undefined) {
             // login required
             if (!await login()) {
                 return;
