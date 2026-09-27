@@ -96,7 +96,7 @@ class Greenely extends utils.Adapter {
             this.log.debug("These are the prices for " + dayName);
 
             let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
-            this.setObjectNotExists(stateTotalBaseName);
+            await this.delObjectAsync(stateTotalBaseName, { recursive: true });
 
             return;
 
