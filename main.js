@@ -116,7 +116,7 @@ class Greenely extends utils.Adapter {
             this.createObject(stateBaseName + "price", "number", "öre/kWh");
 
             //write prices / timestamps to their data points
-/*            await Promise.all(
+            await Promise.all(
                 [this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true),
                  this.setStateAsync(stateBaseName + "end", endDate.toISOString(), true),
                  this.setStateAsync(stateBaseName + "price", price, true)
@@ -134,7 +134,7 @@ class Greenely extends utils.Adapter {
                      this.setStateAsync(stateBaseNameCurrent + "end", endDate.toISOString(), true),
                      this.setStateAsync(stateBaseNameCurrent + "price", price, true)
                 ])
-            }*/
+            }
         }
     } catch (error) {
         this.log.error(`Error while requesting data: ${error.message}`);
