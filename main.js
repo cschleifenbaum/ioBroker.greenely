@@ -55,7 +55,7 @@ class Greenely extends utils.Adapter {
                 responseType: 'json'
            });
         } catch (error) {
-            this.log.error('received error ' + error);
+            this.log.error("Received error " + error);
             (error) => {
                 if (error.response) {
                     // The request was made and the server responded with a status code
