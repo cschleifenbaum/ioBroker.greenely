@@ -91,7 +91,6 @@ class Greenely extends utils.Adapter {
             let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=hourly&to=" + endDateString);
 
             var hour = -1;
-            var quarter = -1;
 
             this.log.debug("These are the prices for " + dayName);
 
@@ -118,10 +117,29 @@ class Greenely extends utils.Adapter {
                 this.createObject(stateBaseName + "end", "string");
                 this.createObject(stateBaseName + "price", "number", "öre/kWh");
 
-                //write prices / timestamps to their data points
+                // write prices / timestamps to their data points
                 this.setState(stateBaseName + "start", startDate.toISOString(), true);
                 this.setState(stateBaseName + "end", endDate.toISOString(), true);
                 this.setState(stateBaseName + "price", price, true);
+
+                // quarters
+                for (var q = 0; q < 3; ++q} {
+                    var quarter = hour * 4 + q;
+                    let stateBaseName = stateTotalBaseName + ".quarterly." + quarter;
+
+                    let startDate = new Date(key * 1000 + q * 250000);
+                    let endDate = new Date(key * 1000 + q * 250000 + 249999);
+                    let price = value.quarters_prices["quarter" + (q - 1)];
+
+                    this.createObject(stateBaseName + "start", "string");
+                    this.createObject(stateBaseName + "end", "string");
+                    this.createObject(stateBaseName + "price", "number", "öre/kWh");
+
+                    // write prices / timestamps to their data points
+                    this.setState(stateBaseName + "start", startDate.toISOString(), true);
+                    this.setState(stateBaseName + "end", endDate.toISOString(), true);
+                    this.setState(stateBaseName + "price", price, true);
+                }
 
                 // if it's the current hour, mark it as current
                 let now = Date.now();
