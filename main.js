@@ -83,6 +83,11 @@ class Greenely extends utils.Adapter {
     }
 
     async fetchData() {
+        let content = this.fetchDataRaw("facilities/?includes=parameters");
+
+        for (var facility in content.data) {
+            this.log.debug("Fetching data for facility " + facility);
+        }
     }
 
     async login() {
@@ -110,6 +115,9 @@ class Greenely extends utils.Adapter {
             }
             this.log.debug("Logged in.");
         }
+
+
+        this.fetchData();
 
 
         let apiParam = '';
@@ -261,7 +269,7 @@ class Greenely extends utils.Adapter {
         try {
             await this.main();
         } catch (error) {
-            this.log.error(err);
+            this.log.error(error);
         }
         this.log.info('Update of data done, exiting ...');
         this.terminate ? this.terminate() : process.exit(0);
