@@ -122,10 +122,23 @@ class Greenely extends utils.Adapter {
                 this.setState(stateBaseName + "end", endDate.toISOString(), true);
                 this.setState(stateBaseName + "price", price, true);
 
+                // if it's the current hour, mark it as current
+                let now = Date.now();
+                if (now >= key * 1000 && now < key * 1000 + 3600000) {
+                    this.createObject(stateBaseNameCurrent + "start", "string");
+                    this.createObject(stateBaseNameCurrent + "end", "string");
+                    this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
+
+                    this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                    this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                    this.setState(stateBaseNameCurrent + "price", price, true);
+                }
+
                 // quarters
                 for (var q = 0; q < 4; ++q) {
                     var quarter = hour * 4 + q;
                     let stateBaseName = stateTotalBaseName + ".quarterly." + quarter + ".";
+                    let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.quarterly";
 
                     let startDate = new Date(key * 1000 + q * 900000);
                     let endDate = new Date(key * 1000 + q * 900000 + 899999);
@@ -139,19 +152,20 @@ class Greenely extends utils.Adapter {
                     this.setState(stateBaseName + "start", startDate.toISOString(), true);
                     this.setState(stateBaseName + "end", endDate.toISOString(), true);
                     this.setState(stateBaseName + "price", price, true);
+
+                    // if it's the current hour, mark it as current
+                    let now = Date.now();
+                    if (now >= (key * 1000 + q * 900000) && now < (key * 1000 + q * 900000 + 900000)) {
+                        this.createObject(stateBaseNameCurrent + "start", "string");
+                        this.createObject(stateBaseNameCurrent + "end", "string");
+                        this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
+
+                        this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                        this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                        this.setState(stateBaseNameCurrent + "price", price, true);
+                    }
                 }
 
-                // if it's the current hour, mark it as current
-                let now = Date.now();
-                if (now >= key * 1000 && now < key * 1000 + 3600000) {
-                    this.createObject(stateBaseNameCurrent + "start", "string");
-                    this.createObject(stateBaseNameCurrent + "end", "string");
-                    this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
-
-                    this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
-                    this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
-                    this.setState(stateBaseNameCurrent + "price", price, true);
-                }
             }
         } catch (error) {
             this.log.error(`Error while fetching spot prices: ${error.message}`);
