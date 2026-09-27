@@ -123,7 +123,7 @@ class Greenely extends utils.Adapter {
                 this.setState(stateBaseName + "price", price, true);
 
                 // quarters
-                for (var q = 0; q < 3; ++q} {
+                for (var q = 0; q < 3; ++q) {
                     var quarter = hour * 4 + q;
                     let stateBaseName = stateTotalBaseName + ".quarterly." + quarter;
 
