@@ -15,7 +15,7 @@ const utils = require("@iobroker/adapter-core");
 // Load your modules here, e.g.:
 // const fs = require("fs");
 
-class TemperaturNu extends utils.Adapter {
+class Greenely extends utils.Adapter {
 
 	/**
 	 * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -23,7 +23,7 @@ class TemperaturNu extends utils.Adapter {
 	constructor(options) {
 		super({
 			...options,
-			name: "temperatur-nu",
+			name: "greenely",
 		});
 		this.on("ready", this.onReady.bind(this));
 		this.on("unload", this.onUnload.bind(this));
@@ -48,7 +48,7 @@ class TemperaturNu extends utils.Adapter {
             this.log.info(`Get forecast from ${url}`)
             let response;
             try {
-                response = await axios.get(url, {headers: {'user-agent': `ioBroker.temperatur-nu/${packJson.version}`}});
+                response = await axios.get(url, {headers: {'user-agent': `ioBroker.greenely/${packJson.version}`}});
             } catch (err) {
                 this.log.error(`Error while requesting data: ${err.message}`);
                 this.log.error('Please check your settings!');
@@ -198,8 +198,8 @@ if (require.main !== module) {
 	/**
 	 * @param {Partial<utils.AdapterOptions>} [options={}]
 	 */
-	module.exports = (options) => new TemperaturNu(options);
+	module.exports = (options) => new Greenely(options);
 } else {
 	// otherwise start the instance directly
-	new TemperaturNu();
+	new Greenely();
 }
