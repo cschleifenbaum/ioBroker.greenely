@@ -125,11 +125,11 @@ class Greenely extends utils.Adapter {
                 // quarters
                 for (var q = 0; q < 3; ++q) {
                     var quarter = hour * 4 + q;
-                    let stateBaseName = stateTotalBaseName + ".quarterly." + quarter;
+                    let stateBaseName = stateTotalBaseName + ".quarterly." + quarter + ".";
 
                     let startDate = new Date(key * 1000 + q * 250000);
                     let endDate = new Date(key * 1000 + q * 250000 + 249999);
-                    let price = value.quarters_prices["quarter" + (q - 1)];
+                    let price = value.quarters_prices["quarter" + (q + 1)] / 1000.0;
 
                     this.createObject(stateBaseName + "start", "string");
                     this.createObject(stateBaseName + "end", "string");
