@@ -77,8 +77,8 @@ class Greenely extends utils.Adapter {
             }
             return null;
         }
-        this.log.debug('local request done');
-        this.log.debug('received data (' + response.status + '): ' + JSON.stringify(response.data));
+        this.log.error('local request done');
+        this.log.error('received data (' + response.status + '): ' + JSON.stringify(response.data));
         return response.data;
     }
 
