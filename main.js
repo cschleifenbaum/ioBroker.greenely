@@ -89,14 +89,14 @@ class Greenely extends utils.Adapter {
 
         let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=hourly&to=" + endDateString);
 
+        var hour = -1;
         var quarter = -1;
 
         this.log.debug("These are the prices for " + dayName);
 
-        const array = content.data;
-
-        for (let hour = 0; hour < array.length; ++hour) {
-            let value = array[hour];
+        for (var key in content.data) {
+            ++hour;
+            let value = content.data[key];
             this.log.debug(hour + " " + value.price);
             let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
             let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.";
