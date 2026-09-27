@@ -81,14 +81,12 @@ class Greenely extends utils.Adapter {
     }
 
     async login() {
-        let loginData = { email: adapter.config.username,
-            password: adapter.config.password,
-            device_id: adapter.config.device_id
+        let loginData = { email: this.config.username,
+            password: this.config.password,
+            device_id: this.config.device_id
         };
 
-        let urlLogin = adapter.config.greenelyApiUrl.concat("login");
-
-        let data = fetchData(urlLogin, loginData);
+        let data = fetchData("login", loginData);
 
         return false;
 	}
