@@ -40,7 +40,7 @@ class Greenely extends utils.Adapter {
         let headersDefault = { "User-Agent": "iOS 2 266" };
         let headersLoggedIn = { "User-Agent": "iOS 2 266", "Authorization": "JWT " + this.jwt };
         let headers = this.jwt === undefined ? headersDefault : headersLoggedIn;
-        let fullurl = url;//this.config.greenelyApiUrl.concat(url);
+        let fullurl = this.config.greenelyApiUrl + url;
         this.log.debug("local request started: " + fullurl);
         this.log.debug(JSON.stringify(headers));
         this.log.debug(JSON.stringify(data));
@@ -57,6 +57,7 @@ class Greenely extends utils.Adapter {
            });
         } catch (error) {
             this.log.error(JSON.stringify(this.config));
+            this.log.error(fullurl);
             this.log.error("Received error " + error);
             (error) => {
                 if (error.response) {
