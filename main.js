@@ -88,6 +88,72 @@ class Greenely extends utils.Adapter {
         const endDateString = date.toISOString().split('T')[0];
 
         let content = await this.fetchDataRaw("facilities/" + facility + "/spot-price?from=" + dateString + "&resolution=hourly&to=" + endDateString);
+
+        var hour = -1;
+        var quarter = -1;
+
+        this.log.debug("These are the prices for " + dayName);
+
+        for (var key in content["data"]) {
+            ++hour;
+            let value = content["data"][key];
+            this.log.debug(key + " " + value.price);
+            let stateBaseName = "facilities." + facility + ".spot-price." + dayName + "." + hour + ".";
+            let stateBaseNameCurrent = "facilities." + facility + ".spot-price.current.";
+
+            let startDate = new Date(key * 1000);
+            let endDate = new Date(key * 1000 + 3599999);
+            let price = value.price / 1000.0;
+
+            if (value.price == null) {
+                continue;
+            }
+
+            this.createObject(stateBaseName + "start", "string");
+            this.createObject(stateBaseName + "end", "string");
+            this.createObject(stateBaseName + "price", "number", "öre/kWh");
+
+            //write prices / timestamps to their data points
+            await Promise.all(
+                [this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true),
+                 this.setStateAsync(stateBaseName + "end", endDate.toISOString(), true),
+                 this.setStateAsync(stateBaseName + "price", price, true)
+            ])
+
+            let now = Date.now();
+            if (now >= key * 1000 && now < key * 1000 + 3600000) {
+                this.createObject(stateBaseNameCurrent + "start", "string");
+                this.createObject(stateBaseNameCurrent + "end", "string");
+                this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
+
+                await Promise.all(
+                    [this.setStateAsync(stateBaseNameCurrent + "start", startDate.toISOString(), true),
+                     this.setStateAsync(stateBaseNameCurrent + "end", endDate.toISOString(), true),
+                     this.setStateAsync(stateBaseNameCurrent + "price", price, true)
+                ])
+            }
+        }
+    }
+
+    createObject(id, type, unit = null) {
+        this.log.debug('createObject ' + id);
+        let objData = {
+                type: "state",
+                common: {
+                    type: type,
+                    role: "value",
+                    read: true,
+                    write: false,
+                    unit: unit
+                },
+        };
+        this.getObject(id, (err, oldObj) => {
+            if (!err && oldObj) {
+                this.extendObject(id, objData, null);
+            } else {
+                this.setObjectNotExists(id, objData, null);
+            }
+        });
     }
 
     async fetchData() {
