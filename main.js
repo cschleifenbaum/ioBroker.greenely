@@ -96,7 +96,7 @@ class Greenely extends utils.Adapter {
     async main() {
         if (this.jwt === undefined) {
             // login required
-            if (!(await login())) {
+            if (!(await this.login())) {
                 return;
             }
         }
