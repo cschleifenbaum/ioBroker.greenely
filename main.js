@@ -117,13 +117,13 @@ class Greenely extends utils.Adapter {
 
             //write prices / timestamps to their data points
             await Promise.all(
-                [this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true),
-                 this.setStateAsync(stateBaseName + "end", endDate.toISOString(), true),
-                 this.setStateAsync(stateBaseName + "price", price, true)
+                [this.setStateAsync(stateBaseName + "start", startDate.toISOString(), true)//,
+                 //this.setStateAsync(stateBaseName + "end", endDate.toISOString(), true),
+                 //this.setStateAsync(stateBaseName + "price", price, true)
             ])
 
             // if it's the current hour, mark it as current
-            let now = Date.now();
+            /*let now = Date.now();
             if (now >= key * 1000 && now < key * 1000 + 3600000) {
                 this.createObject(stateBaseNameCurrent + "start", "string");
                 this.createObject(stateBaseNameCurrent + "end", "string");
@@ -134,7 +134,7 @@ class Greenely extends utils.Adapter {
                      this.setStateAsync(stateBaseNameCurrent + "end", endDate.toISOString(), true),
                      this.setStateAsync(stateBaseNameCurrent + "price", price, true)
                 ])
-            }
+            }*/
         }
     } catch (error) {
         this.log.error(`Error while requesting data: ${error.message}`);
