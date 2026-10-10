@@ -184,12 +184,12 @@ class Greenely extends utils.Adapter {
                     unit: unit
                 },
         };
-        await this.getObject(id, (err, oldObj) => {
-            if (!err && oldObj) {
-                //await this.extendObject(id, objData, null);
-            } else {
-                //await this.setObjectNotExistsAsync(id, objData, null);
-            }
+        //this.getObject(id, (err, oldObj) => {
+        //    if (!err && oldObj) {
+        //        //await this.extendObject(id, objData, null);
+        //    } else {
+                await this.setObjectNotExistsAsync(id, objData, null);
+        //    }
         });
     }
 
