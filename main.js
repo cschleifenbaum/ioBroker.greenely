@@ -172,7 +172,7 @@ class Greenely extends utils.Adapter {
         }
     }
 
-    /*createObject(id, type, unit = null) {
+    createObject(id, type, unit = null) {
         this.log.debug('createObject ' + id);
         let objData = {
                 type: "state",
@@ -188,10 +188,10 @@ class Greenely extends utils.Adapter {
         //    if (!err && oldObj) {
         //        //await this.extendObject(id, objData, null);
         //    } else {
-               // await this.setObjectNotExistsAsync(id, objData, null);
+                await this.setObjectNotExistsAsync(id, objData, null);
         //    }
-        });
-    }*/
+        //});
+    }
 
     async fetchData() {
         let content = await this.fetchDataRaw("facilities/?includes=parameters");
