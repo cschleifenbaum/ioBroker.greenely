@@ -172,7 +172,7 @@ class Greenely extends utils.Adapter {
         }
     }
 
-    /*createObject(id, type, unit = null) {
+    createObject(id, type, unit = null) {
         this.log.debug('createObject ' + id);
         let objData = {
                 type: "state",
@@ -191,7 +191,7 @@ class Greenely extends utils.Adapter {
                 await this.setObjectNotExistsAsync(id, objData, null);
             }
         });
-    }*/
+    }
 
     async fetchData() {
         let content = await this.fetchDataRaw("facilities/?includes=parameters");
