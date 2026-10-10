@@ -83,7 +83,7 @@ class Greenely extends utils.Adapter {
     }
 
     async fetchSpotPrices(facility, date, dayName) {
-        try {
+        /*try {
             date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
             const dateString = date.toISOString().split('T')[0];
             date.setDate(date.getDate() + 1);
@@ -169,10 +169,10 @@ class Greenely extends utils.Adapter {
             }
         } catch (error) {
             this.log.error(`Error while fetching spot prices: ${error.message}`);
-        }
+        }*/
     }
 
-    createObject(id, type, unit = null) {
+    /*createObject(id, type, unit = null) {
         this.log.debug('createObject ' + id);
         let objData = {
                 type: "state",
@@ -191,7 +191,7 @@ class Greenely extends utils.Adapter {
                 await this.setObjectNotExistsAsync(id, objData, null);
             }
         });
-    }
+    }*/
 
     async fetchData() {
         let content = await this.fetchDataRaw("facilities/?includes=parameters");
@@ -199,7 +199,7 @@ class Greenely extends utils.Adapter {
         this.log.debug(JSON.stringify(content));
 
 
-        await this.delObject("facilities", {recursive: true});
+        //await this.delObject("facilities", {recursive: true});
         return;
 
         for (var f in content["data"]) {
