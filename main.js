@@ -96,8 +96,6 @@ class Greenely extends utils.Adapter {
             this.log.debug("These are the prices for " + dayName);
 
             let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
-            this.delObject(stateTotalBaseName, { recursive: true });
-            return;
 
             for (var key in content.data) {
                 ++hour;
@@ -120,9 +118,9 @@ class Greenely extends utils.Adapter {
                 this.createObject(stateBaseName + "price", "number", "öre/kWh");
 
                 // write prices / timestamps to their data points
-                this.setState(stateBaseName + "start", startDate.toISOString(), true);
-                this.setState(stateBaseName + "end", endDate.toISOString(), true);
-                this.setState(stateBaseName + "price", price, true);
+                await this.setState(stateBaseName + "start", startDate.toISOString(), true);
+                await this.setState(stateBaseName + "end", endDate.toISOString(), true);
+                await this.setState(stateBaseName + "price", price, true);
 
                 // if it's the current hour, mark it as current
                 let now = Date.now();
@@ -131,9 +129,9 @@ class Greenely extends utils.Adapter {
                     this.createObject(stateBaseNameCurrent + "end", "string");
                     this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
 
-                    this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
-                    this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
-                    this.setState(stateBaseNameCurrent + "price", price, true);
+                    await this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                    await this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                    await this.setState(stateBaseNameCurrent + "price", price, true);
                 }
 
                 // quarters
@@ -151,9 +149,9 @@ class Greenely extends utils.Adapter {
                     this.createObject(stateBaseName + "price", "number", "öre/kWh");
 
                     // write prices / timestamps to their data points
-                    this.setState(stateBaseName + "start", startDate.toISOString(), true);
-                    this.setState(stateBaseName + "end", endDate.toISOString(), true);
-                    this.setState(stateBaseName + "price", price, true);
+                    await this.setState(stateBaseName + "start", startDate.toISOString(), true);
+                    await this.setState(stateBaseName + "end", endDate.toISOString(), true);
+                    await this.setState(stateBaseName + "price", price, true);
 
                     // if it's the current hour, mark it as current
                     let now = Date.now();
@@ -162,9 +160,9 @@ class Greenely extends utils.Adapter {
                         this.createObject(stateBaseNameCurrent + "end", "string");
                         this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
 
-                        this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
-                        this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
-                        this.setState(stateBaseNameCurrent + "price", price, true);
+                        await this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                        await this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                        await this.setState(stateBaseNameCurrent + "price", price, true);
                     }
                 }
 
@@ -186,11 +184,11 @@ class Greenely extends utils.Adapter {
                     unit: unit
                 },
         };
-        this.getObject(id, (err, oldObj) => {
+        await this.getObject(id, (err, oldObj) => {
             if (!err && oldObj) {
-                this.extendObject(id, objData, null);
+                await this.extendObject(id, objData, null);
             } else {
-                this.setObjectNotExists(id, objData, null);
+                await this.setObjectNotExistsAsync(id, objData, null);
             }
         });
     }
@@ -199,6 +197,10 @@ class Greenely extends utils.Adapter {
         let content = await this.fetchDataRaw("facilities/?includes=parameters");
 
         this.log.debug(JSON.stringify(content));
+
+
+        await this.delObject("facilities");
+        return;
 
         for (var f in content["data"]) {
             var facility = content["data"][f];
