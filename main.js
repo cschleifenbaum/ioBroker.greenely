@@ -97,7 +97,7 @@ class Greenely extends utils.Adapter {
 
             let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
 
-            /*for (var key in content.data) {
+            for (var key in content.data) {
                 ++hour;
                 let value = content.data[key];
                 this.log.debug(JSON.stringify(value));
@@ -166,7 +166,7 @@ class Greenely extends utils.Adapter {
                     }
                 }
 
-            }*/
+            }
         } catch (error) {
             this.log.error(`Error while fetching spot prices: ${error.message}`);
         }
