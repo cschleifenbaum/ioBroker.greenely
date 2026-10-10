@@ -97,7 +97,7 @@ class Greenely extends utils.Adapter {
 
             let stateTotalBaseName = "facilities." + facility + ".spot-price." + dayName;
 
-            for (var key in content.data) {
+            /*for (var key in content.data) {
                 ++hour;
                 let value = content.data[key];
                 this.log.debug(JSON.stringify(value));
@@ -166,13 +166,13 @@ class Greenely extends utils.Adapter {
                     }
                 }
 
-            }
+            }*/
         } catch (error) {
             this.log.error(`Error while fetching spot prices: ${error.message}`);
         }
     }
 
-    createObject(id, type, unit = null) {
+    /*createObject(id, type, unit = null) {
         this.log.debug('createObject ' + id);
         let objData = {
                 type: "state",
@@ -191,7 +191,7 @@ class Greenely extends utils.Adapter {
                 await this.setObjectNotExistsAsync(id, objData, null);
             }
         });
-    }
+    }*/
 
     async fetchData() {
         let content = await this.fetchDataRaw("facilities/?includes=parameters");
@@ -246,7 +246,7 @@ class Greenely extends utils.Adapter {
         this.fetchData();
 
 
-        let apiParam = '';
+        /*let apiParam = '';
         if (
             this.config.latitude !== undefined && this.config.longitude !== undefined &&
             this.config.latitude !== null && this.config.longitude !== null &&
@@ -273,10 +273,10 @@ class Greenely extends utils.Adapter {
             this.log.info('Data updated.');
         } else {
             this.log.error('Longitude or Latitude not set correctly.');
-        }
+        }*/
     }
 
-    async updateData(data) {
+    /*async updateData(data) {
         this.log.info(`Raw data: ${JSON.stringify(data)}`);
 
         const device = 'station';
@@ -355,7 +355,7 @@ class Greenely extends utils.Adapter {
             }
         });
         await this.setStateAsync(device + '.temperature', parseFloat(data.stations[0].temp), true);
-    }
+    }*/
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
