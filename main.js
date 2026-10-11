@@ -120,7 +120,7 @@ class Greenely extends utils.Adapter {
                 this.createObject(stateBaseName + "end", "string").then(() => {
                     this.setState(stateBaseName + "end", endDate.toISOString(), true);
                 });
-                this.createObject(stateBaseName + "price", "number", "ore/kWh").then(() => {
+                this.createObject(stateBaseName + "price", "number", "öre/kWh").then(() => {
                     this.setState(stateBaseName + "price", price, true);
                 });
 
@@ -133,7 +133,7 @@ class Greenely extends utils.Adapter {
                     this.createObject(stateBaseNameCurrent + "end", "string").then(() => {
                         this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
                     });
-                    this.createObject(stateBaseNameCurrent + "price", "number", "ore/kWh").then(() => {
+                    this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh").then(() => {
                         this.setState(stateBaseNameCurrent + "price", price, true);
                     });
                 }
@@ -155,7 +155,7 @@ class Greenely extends utils.Adapter {
                     this.createObject(stateBaseName + "end", "string").then(() => {
                         this.setState(stateBaseName + "end", endDate.toISOString(), true);
                     });
-                    this.createObject(stateBaseName + "price", "number", "ore/kWh").then(() => {
+                    this.createObject(stateBaseName + "price", "number", "öre/kWh").then(() => {
                         this.setState(stateBaseName + "price", price, true);
                     });
 
@@ -168,7 +168,7 @@ class Greenely extends utils.Adapter {
                         this.createObject(stateBaseNameCurrent + "end", "string").then(() => {
                             this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
                         });
-                        this.createObject(stateBaseNameCurrent + "price", "number", "ore/kWh").then(() => {
+                        this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh").then(() => {
                             this.setState(stateBaseNameCurrent + "price", price, true);
                         });
                     }
