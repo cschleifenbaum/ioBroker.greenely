@@ -248,7 +248,7 @@ class Greenely extends utils.Adapter {
         }
 
 
-        this.fetchData();
+        await this.fetchData();
     }
 
 	/**
