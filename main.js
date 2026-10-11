@@ -126,15 +126,17 @@ class Greenely extends utils.Adapter {
 
                 // if it's the current hour, mark it as current
                 let now = Date.now();
-                /*if (now >= key * 1000 && now < key * 1000 + 3600000) {
-                    await this.createObject(stateBaseNameCurrent + "start", "string");
-                    await this.createObject(stateBaseNameCurrent + "end", "string");
-                    await this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
-
-                    await this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
-                    await this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
-                    await this.setState(stateBaseNameCurrent + "price", price, true);
-                }*/
+                if (now >= key * 1000 && now < key * 1000 + 3600000) {
+                    this.createObject(stateBaseNameCurrent + "start", "string").then(() => {
+                        this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                    });
+                    this.createObject(stateBaseNameCurrent + "end", "string").then(() => {
+                        this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                    });
+                    this.createObject(stateBaseNameCurrent + "price", "number", "ore/kWh").then(() => {
+                        this.setState(stateBaseNameCurrent + "price", price, true);
+                    });
+                }
 
                 // quarters
                 for (var q = 0; q < 4; ++q) {
@@ -159,15 +161,17 @@ class Greenely extends utils.Adapter {
 
                     // if it's the current hour, mark it as current
                     let now = Date.now();
-                    /*if (now >= (key * 1000 + q * 900000) && now < (key * 1000 + q * 900000 + 900000)) {
-                        await this.createObject(stateBaseNameCurrent + "start", "string");
-                        await this.createObject(stateBaseNameCurrent + "end", "string");
-                        await this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
-
-                        await this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
-                        await this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
-                        await this.setState(stateBaseNameCurrent + "price", price, true);
-                    }*/
+                    if (now >= (key * 1000 + q * 900000) && now < (key * 1000 + q * 900000 + 900000)) {
+                        this.createObject(stateBaseNameCurrent + "start", "string").then(() => {
+                            this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
+                        });
+                        this.createObject(stateBaseNameCurrent + "end", "string").then(() => {
+                            this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
+                        });
+                        this.createObject(stateBaseNameCurrent + "price", "number", "ore/kWh").then(() => {
+                            this.setState(stateBaseNameCurrent + "price", price, true);
+                        });
+                    }
                 }
 
             }
