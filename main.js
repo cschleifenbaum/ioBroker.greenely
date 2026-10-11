@@ -120,7 +120,7 @@ class Greenely extends utils.Adapter {
                 this.createObject(stateBaseName + "end", "string").then(() => {
                     this.setState(stateBaseName + "end", endDate.toISOString(), true);
                 });
-                this.createObject(stateBaseName + "price", "number", "öre/kWh".then(() => {
+                this.createObject(stateBaseName + "price", "number", "öre/kWh".then() => {
                     this.setState(stateBaseName + "price", price, true);
                 });
 
@@ -153,7 +153,7 @@ class Greenely extends utils.Adapter {
                     this.createObject(stateBaseName + "end", "string").then(() => {
                         this.setState(stateBaseName + "end", endDate.toISOString(), true);
                     });
-                    this.createObject(stateBaseName + "price", "number", "öre/kWh".then(() => {
+                    this.createObject(stateBaseName + "price", "number", "öre/kWh".then() => {
                         this.setState(stateBaseName + "price", price, true);
                     });
 
