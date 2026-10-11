@@ -113,18 +113,20 @@ class Greenely extends utils.Adapter {
                     continue;
                 }
 
-                await this.createObject(stateBaseName + "start", "string");
-                await this.createObject(stateBaseName + "end", "string");
-                await this.createObject(stateBaseName + "price", "number", "öre/kWh");
-
                 // write prices / timestamps to their data points
-                await this.setState(stateBaseName + "start", startDate.toISOString(), true);
-                await this.setState(stateBaseName + "end", endDate.toISOString(), true);
-                await this.setState(stateBaseName + "price", price, true);
+                this.createObject(stateBaseName + "start", "string").then(() => {
+                    this.setState(stateBaseName + "start", startDate.toISOString(), true);
+                });
+                this.createObject(stateBaseName + "end", "string").then(() => {
+                    this.setState(stateBaseName + "end", endDate.toISOString(), true);
+                });
+                this.createObject(stateBaseName + "price", "number", "öre/kWh".then(() => {
+                    this.setState(stateBaseName + "price", price, true);
+                });
 
                 // if it's the current hour, mark it as current
                 let now = Date.now();
-                if (now >= key * 1000 && now < key * 1000 + 3600000) {
+                /*if (now >= key * 1000 && now < key * 1000 + 3600000) {
                     await this.createObject(stateBaseNameCurrent + "start", "string");
                     await this.createObject(stateBaseNameCurrent + "end", "string");
                     await this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
@@ -132,7 +134,7 @@ class Greenely extends utils.Adapter {
                     await this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
                     await this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
                     await this.setState(stateBaseNameCurrent + "price", price, true);
-                }
+                }*/
 
                 // quarters
                 for (var q = 0; q < 4; ++q) {
@@ -144,18 +146,20 @@ class Greenely extends utils.Adapter {
                     let endDate = new Date(key * 1000 + q * 900000 + 899999);
                     let price = value.quarters_prices["quarter" + (q + 1)] / 1000.0;
 
-                    await this.createObject(stateBaseName + "start", "string");
-                    await this.createObject(stateBaseName + "end", "string");
-                    await this.createObject(stateBaseName + "price", "number", "öre/kWh");
-
                     // write prices / timestamps to their data points
-                    await this.setState(stateBaseName + "start", startDate.toISOString(), true);
-                    await this.setState(stateBaseName + "end", endDate.toISOString(), true);
-                    await this.setState(stateBaseName + "price", price, true);
+                    this.createObject(stateBaseName + "start", "string").then(() => {
+                        this.setState(stateBaseName + "start", startDate.toISOString(), true);
+                    });
+                    this.createObject(stateBaseName + "end", "string").then(() => {
+                        this.setState(stateBaseName + "end", endDate.toISOString(), true);
+                    });
+                    this.createObject(stateBaseName + "price", "number", "öre/kWh".then(() => {
+                        this.setState(stateBaseName + "price", price, true);
+                    });
 
                     // if it's the current hour, mark it as current
                     let now = Date.now();
-                    if (now >= (key * 1000 + q * 900000) && now < (key * 1000 + q * 900000 + 900000)) {
+                    /*if (now >= (key * 1000 + q * 900000) && now < (key * 1000 + q * 900000 + 900000)) {
                         await this.createObject(stateBaseNameCurrent + "start", "string");
                         await this.createObject(stateBaseNameCurrent + "end", "string");
                         await this.createObject(stateBaseNameCurrent + "price", "number", "öre/kWh");
@@ -163,7 +167,7 @@ class Greenely extends utils.Adapter {
                         await this.setState(stateBaseNameCurrent + "start", startDate.toISOString(), true);
                         await this.setState(stateBaseNameCurrent + "end", endDate.toISOString(), true);
                         await this.setState(stateBaseNameCurrent + "price", price, true);
-                    }
+                    }*/
                 }
 
             }
