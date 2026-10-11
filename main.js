@@ -200,7 +200,7 @@ class Greenely extends utils.Adapter {
         this.log.debug(JSON.stringify(content));
 
 
-        await this.delObjectAsync("facilities", {recursive: true});
+        //await this.delObjectAsync("facilities", {recursive: true});
 
         for (var f in content["data"]) {
             var facility = content["data"][f];
@@ -245,118 +245,7 @@ class Greenely extends utils.Adapter {
 
 
         this.fetchData();
-
-
-        /*let apiParam = '';
-        if (
-            this.config.latitude !== undefined && this.config.longitude !== undefined &&
-            this.config.latitude !== null && this.config.longitude !== null &&
-            this.config.latitude !== '' && this.config.longitude !== '' &&
-            !isNaN(this.config.latitude) && !isNaN(this.config.longitude)
-        ) {
-            apiParam += `&lat=${this.config.latitude}&lon=${this.config.longitude}`;
-            const url = 'https://api.temperatur.nu/tnu_1.17.php?cli=tnu' + apiParam;
-            this.log.info(`Get forecast from ${url}`)
-            let response;
-            try {
-                response = await axios.get(url, {headers: {'user-agent': `ioBroker.greenely/${packJson.version}`}});
-            } catch (err) {
-                this.log.error(`Error while requesting data: ${err.message}`);
-                this.log.error('Please check your settings!');
-            }
-            if (response) {
-                try {
-                    await this.updateData(response.data);
-                } catch (err) {
-                    this.log.error(`Error while updating data: ${err.message}`);
-                }
-            }
-            this.log.info('Data updated.');
-        } else {
-            this.log.error('Longitude or Latitude not set correctly.');
-        }*/
     }
-
-    /*async updateData(data) {
-        this.log.info(`Raw data: ${JSON.stringify(data)}`);
-
-        const device = 'station';
-        const now = Date.now();
-
-        await this.setObjectNotExistsAsync(device, {
-            type: 'device',
-            common: {
-                name: 'station',
-                role: 'wheater'
-            },
-            native: {},
-        });
-
-        await this.setObjectNotExistsAsync(device + '.title', {
-            type: 'state',
-            common: {
-                name: 'station title',
-                role: 'text',
-                read: true,
-                write: false,
-                unit: '',
-                type: 'string'
-            },
-            native: {},
-        });
-        // Update existing
-        this.extendObjectAsync(device + '.title', {
-            common: {
-                type: 'string',
-                role: 'text'
-            }
-        });
-        await this.setStateAsync(device + '.title', data.stations[0].title, true);
-
-
-        await this.setObjectNotExistsAsync(device + '.id', {
-            type: 'state',
-            common: {
-                name: 'station id',
-                role: 'text',
-                read: true,
-                write: false,
-                unit: '',
-                type: 'string'
-            },
-            native: {},
-        });
-        // Update existing
-        this.extendObjectAsync(device + '.id', {
-            common: {
-                type: 'string',
-                role: 'text'
-            }
-        });
-        await this.setStateAsync(device + '.id', data.stations[0].id, true);
-
-
-        await this.setObjectNotExistsAsync(device + '.temperature', {
-            type: 'state',
-            common: {
-                name: 'current temperature',
-                role: 'value.temperature',
-                read: true,
-                write: false,
-                unit: '°C',
-                type: 'number'
-            },
-            native: {},
-        });
-        // Update existing
-        this.extendObjectAsync(device + '.temperature', {
-            common: {
-                type: 'number',
-                role: 'value.temperature'
-            }
-        });
-        await this.setStateAsync(device + '.temperature', parseFloat(data.stations[0].temp), true);
-    }*/
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
