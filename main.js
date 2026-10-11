@@ -295,8 +295,13 @@ class Greenely extends utils.Adapter {
         } catch (error) {
             this.log.error(error);
         }
+
         this.log.info('Update of data done, exiting ...');
-        this.terminate ? this.terminate() : process.exit(0);
+        // just wait another 10s to make sure no Promise is still running...
+        setTimeout(() => {
+            this.unloaded = true;
+            this.terminate ? this.terminate() : process.exit(0);
+        }, 10000);
     }
 
 	onUnload(callback) {
