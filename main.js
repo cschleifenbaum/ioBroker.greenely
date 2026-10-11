@@ -204,7 +204,7 @@ class Greenely extends utils.Adapter {
         this.log.debug(JSON.stringify(content));
 
 
-        //await this.delObjectAsync("facilities", {recursive: true});
+        await this.delObjectAsync("facilities", {recursive: true});
 
         for (var f in content["data"]) {
             var facility = content["data"][f];
